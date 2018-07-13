@@ -69,7 +69,7 @@ $backup_date = $data['backup_date'];
             <select class="form-control" name="module" id="module">
             <?php 
                 echo "<option value=".$module.">Module ".$module."</option>";
-                for($i=1; $i<17; $i++)
+                for($i=1; $i<3; $i++)
                 {
                   echo "<option value=".$i.">Module ".$i."</option>";
                 }
