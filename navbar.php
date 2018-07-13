@@ -47,6 +47,7 @@
         <li><a href="generaldata.php">Overview</a></li>
         <li><a href="communication.php">Communication</a></li>
         <li><a href="module.php">Module</a></li>
+        <li><a href="backupevent.php">Backup Event</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container-fluid -->
