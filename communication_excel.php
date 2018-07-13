@@ -4,11 +4,11 @@ include ('config/connect.php');
 include "PHPExcel-1.8/Classes/PHPExcel.php";
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 date_default_timezone_set("Asia/Jakarta");
-session_start();
-if (!isset($_SESSION['ID'])){
-// Jika Tidak Arahkan Kembali ke Halaman Login
-  header("location: login.php");
-} 
+// session_start();
+// if (!isset($_SESSION['ID'])){
+// // Jika Tidak Arahkan Kembali ke Halaman Login
+//   header("location: login.php");
+// } 
 
 $excelku = new PHPExcel();
 

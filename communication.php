@@ -3,11 +3,11 @@ include ('config/connect.php');
 include ('navbar.php');
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 date_default_timezone_set('Asia/Jakarta');
-session_start();
-if (!isset($_SESSION['ID'])){
-// Jika Tidak Arahkan Kembali ke Halaman Login
-  header("location: login.php");
-} 
+// session_start();
+// if (!isset($_SESSION['ID'])){
+// // Jika Tidak Arahkan Kembali ke Halaman Login
+//   header("location: login.php");
+// } 
 ?>
 <?php
   $base_url = "http://" . $_SERVER['SERVER_NAME']."";

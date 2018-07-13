@@ -3,11 +3,11 @@ include ('config/connect.php');
 include ('navbar.php');
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 date_default_timezone_set('Asia/Jakarta');
-session_start();
-if (!isset($_SESSION['ID'])){
-// Jika Tidak Arahkan Kembali ke Halaman Login
-  header("location: login.php");
-} 
+// session_start();
+// if (!isset($_SESSION['ID'])){
+// // Jika Tidak Arahkan Kembali ke Halaman Login
+//   header("location: login.php");
+// } 
 $sql = mysqli_query($con, "SELECT DATE(TIMESTAMP + INTERVAL 3 MONTH) AS backup_date FROM GeneralData ORDER BY TIMESTAMP ASC LIMIT 1");
 $data = mysqli_fetch_assoc($sql);
 $backup_date = $data['backup_date'];
