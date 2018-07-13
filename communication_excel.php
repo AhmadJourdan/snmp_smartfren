@@ -35,7 +35,7 @@ $SI->setCellValue('H1', 'Netmask');
 $SI->setCellValue('I1', 'SNMP Port'); 
 
 // Mengambil data dari tabel
-$sql = mysqli_query($con, "SELECT * FROM `Communication` where(Timestamp between '".$_POST["dari"]."' and '".$_POST["sampai"]."') ") or die(mysqli_error());
+$sql = mysqli_query($con, "SELECT * FROM BackupEvent WHERE BackupEvent.`Begin` > '".$_POST["dari"]."' AND BackupEvent.`Begin` < '".$_POST["sampai"]."' ") or die(mysqli_error());
 $baris  = 2;
 
 while($data=mysqli_fetch_array($sql)){
