@@ -1,0 +1,622 @@
+-- ============================================================================
+-- Description: 
+-- Reference:
+-- Version: V2.0
+-- History:
+-- created by Vicky Yuliandi, 13 Apr 2018
+-- ============================================================================
+GSPE-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+        OBJECT-TYPE, OCTET STRING32, NOTIFICATION-TYPE, enterprises
+FROM SNMPv2-SMI
+;
+
+GSPE		OBJECT IDENTIFIER ::= {enterprises 10000}
+PanasonicDCB105ZK OBJECT IDENTIFIER ::= {GSPE 10}
+Group1 OBJECT IDENTIFIER ::= {PanasonicDCB105ZK 1}
+Overview OBJECT IDENTIFIER ::= {Group1 10}
+Communication OBJECT IDENTIFIER ::= {Group1 20}
+Module OBJECT IDENTIFIER ::= {Group1 30}
+General OBJECT IDENTIFIER ::= {Module 10}
+Temperatures OBJECT IDENTIFIER ::= {Module 20}
+CellVoltage OBJECT IDENTIFIER ::= {Module 30}
+Notification OBJECT IDENTIFIER ::= {Module 40}
+Profile OBJECT IDENTIFIER ::= {Module 50}
+
+-- Overview ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CV OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Charging Voltage (Volt)"
+	::= {Overview 10}
+	
+CCL OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "ChargingCurrentLimit (Ampere)"
+	::= {Overview 20}
+	
+DCL OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "DischargingCurrentLimit (Ampere)"
+	::= {Overview 30}
+
+EDV OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "End of Discharge Voltage (Volt)"
+	::= {Overview 40}
+
+BusVolt OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Bus Voltage (Volt)"
+	::= {Overview 50}
+
+BusCurr OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Bus Current (Ampere)"
+	::= {Overview 60}
+
+Capacity OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Total Capacity (Ah)"
+	::= {Overview 70}
+
+BackupTime OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Backtup Time"
+	::= {Overview 80}
+
+DetectedMod OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Detected Battery Module (Module)"
+	::= {Overview 90}
+
+Status OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Status of all battery modules"
+	::= {Overview 100}
+
+Warning OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Warning from all battery modules"
+	::= {Overview 110}
+
+Alarm OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Alarm from all battery modules"
+	::= {Overview 120}
+	
+Error OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Error found in all battery modules"
+	::= {Overview 130}
+	
+-- Communication ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ipAddress OBJECT-TYPE
+	SYNTAX STRING
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION "IP Address of the Panasonic DCB105ZK modbus-snmp converter."
+	::= {Communication 10}
+
+netMask OBJECT-TYPE
+	SYNTAX STRING
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION "NetMask of the Panasonic DCB105ZK modbus-snmp converter."
+	::= {Communication 20}
+
+gateway OBJECT-TYPE
+	SYNTAX STRING
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION "gateway Address of the Panasonic DCB105ZK modbus-snmp converter."
+	::= {Communication 30}
+
+snmpVersion OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION "SNMP Version of the Panasonic DCB105ZK modbus-snmp converter.
+				Available Version: 1 & 2."
+	::= {Communication 40}
+	
+snmpCommunity OBJECT-TYPE
+	SYNTAX STRING
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION "SNMP Community of the Panasonic DCB105ZK modbus-snmp converter"
+	::= {Communication 50}
+	
+snmpPort OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION "SNMP port of the Panasonic DCB105ZK modbus-snmp converter"
+	::= {Communication 60}
+
+sysOID OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION "system OID"
+	::= {Communication 70}
+
+-- Module ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- 1. General -------------------------------------------	
+General-Table OBJECT-TYPE
+	SYNTAX SEQUENCE OF General-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= {General 15}
+
+general-Entry OBJECT-TYPE
+	SYNTAX General-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= { General-Table 1 }
+
+General-Entry ::= SEQUENCE {
+  Voltage OCTET STRING,
+  Current OCTET STRING,
+  DC OCTET STRING,
+  FCC OCTET STRING,
+  RC OCTET STRING,
+  SOC OCTET STRING,
+  SOH OCTET STRING,
+  CycleCount OCTET STRING,
+ }
+ 
+Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Voltage (Volt).
+				 Original Data Type: Float"
+	::= {general-Entry 10}
+
+Current OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Current (Ampere).
+				 Original Data Type: Float"
+	::= {general-Entry 20}
+
+DC OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Design Capacity (%).
+				 Original Data Type: Float"
+	::= {general-Entry 30}
+	
+FCC OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Full Charge Capacity (%).
+				 Original Data Type: Float"
+	::= {general-Entry 40}
+
+RC OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Remaining Capacity.
+				 Original Data Type: Float"
+	::= {general-Entry 50}
+	
+SOC OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "State of Charge (%).
+				 Original Data Type: Float"
+	::= {general-Entry 60}
+
+SOH OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "State of Health (%).
+				 Original Data Type: Float"
+	::= {general-Entry 70}
+
+CycleCount OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cycle Count (Cycle).
+				 Original Data Type: Float"
+	::= {general-Entry 80}
+
+-- 2. Cell Voltage -------------------------------------------	
+CellVoltage-Table OBJECT-TYPE
+	SYNTAX SEQUENCE OF CellVoltage-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= {CellVoltage 15}
+
+cellVoltage-Entry OBJECT-TYPE
+	SYNTAX CellVoltage-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= { CellVoltage-Table 1 }
+
+CellVoltage-Entry ::= SEQUENCE {
+  MaxCellVoltage OCTET STRING,
+  MinCellVoltage OCTET STRING,
+  Cell-1-Voltage OCTET STRING,
+  Cell-2-Voltage OCTET STRING,
+  Cell-3-Voltage OCTET STRING,
+  Cell-4-Voltage OCTET STRING,
+  Cell-5-Voltage OCTET STRING,
+  Cell-6-Voltage OCTET STRING,
+  Cell-7-Voltage OCTET STRING,
+  Cell-8-Voltage OCTET STRING,
+  Cell-9-Voltage OCTET STRING,
+  Cell-10-Voltage OCTET STRING,
+  Cell-11-Voltage OCTET STRING,
+  Cell-12-Voltage OCTET STRING,
+  Cell-13-Voltage OCTET STRING
+ }
+
+ 
+MaxCellVoltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Minimum Battery Cell Voltage (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 10}
+	
+MinCellVoltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Maximum Battery Cell Voltage (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 20}
+	
+Cell-1-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #1 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 30}
+
+Cell-2-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #2 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 40}
+	
+Cell-3-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #3 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 50}
+
+Cell-4-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #4 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 60}
+
+Cell-5-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #5 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 70}
+	
+Cell-6-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #6 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 80}
+
+Cell-7-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #7 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 90}
+	
+Cell-8-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #8 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 100}
+	
+Cell-9-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #9 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 110}
+
+Cell-10-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #10 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 120}
+	
+Cell-11-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #11 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 130}
+
+Cell-12-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #12 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 140}
+	
+Cell-13-Voltage OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Battery Cell Voltage Data #13 (Volt)
+				 Original Data Type: Float"
+	::= {cellVoltage-Entry 150}
+	
+-- 3. Temperatures -------------------------------------------	
+Temperatures-Table OBJECT-TYPE
+	SYNTAX SEQUENCE OF Temperatures-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= {Temperatures 15}
+
+temperatures-Entry OBJECT-TYPE
+	SYNTAX Temperatures-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= { Temperatures-Table 1 }
+
+Temperatures-Entry ::= SEQUENCE {
+  MaxCellTemp OCTET STRING,
+  MinCellTemp OCTET STRING,
+  MaxFETTemp OCTET STRING,
+  MaxPCBPartsTemp OCTET STRING,
+  CellTemp1 OCTET STRING,
+  CellTemp2 OCTET STRING,
+  CellTemp3 OCTET STRING,
+  FETTemp1 OCTET STRING,
+  PCBPartsTemp1 OCTET STRING,
+ }
+ 
+MaxCellTemp OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Maximum Battery Temperature (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 10}
+
+MinCellTemp OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Minimum Battery Temperature(Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 20}
+
+MaxFETTemp OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Maximum FET Temperature (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 30}
+
+MaxPCBPartsTemp OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Maximum FET Temperature (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 40}
+	
+CellTemp1 OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Maximum Battery Temperature Data #1 (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 50}
+
+CellTemp2 OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Maximum Battery Temperature Data #2 (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 60}
+	
+CellTemp3 OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Maximum Battery Temperature Data #3 (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 70}
+	
+FETTemp OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "FET Temperature (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 80}
+	
+PCBPartsTemp OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "PCB Parts Temperature (Celcius).
+				 Original Data Type: Float"
+	::= {temperatures-Entry 90}
+
+-- 4. Notification -------------------------------------------	
+Notification-Table OBJECT-TYPE
+	SYNTAX SEQUENCE OF Notification-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= {Notification 15}
+
+notification-Entry OBJECT-TYPE
+	SYNTAX Notification-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= { Notification-Table 1 }
+
+Notification-Entry ::= SEQUENCE {
+  ModuleStatus OCTET STRING,
+  ModuleWarning OCTET STRING,
+  ModuleAlarm OCTET STRING,
+  ModuleError OCTET STRING,
+ }
+ 
+ModuleStatus OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Module Status.
+				 Original Data Type: String"
+	::= {notification-Entry 10}
+
+ModuleWarning OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Module Warning.
+				 Original Data Type: String"
+	::= {notification-Entry 20}
+	
+ModuleAlarm OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Module Alarm.
+				 Original Data Type: String"
+	::= {notification-Entry 30}
+	
+ModuleError OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Module Error.
+				 Original Data Type: String"
+	::= {notification-Entry 40}
+	
+-- 5. Profile -------------------------------------------	
+Profile-Table OBJECT-TYPE
+	SYNTAX SEQUENCE OF Profile-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= {Profile 15}
+
+profile-Entry OBJECT-TYPE
+	SYNTAX Profile-Entry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION ""
+	::= { Profile-Table 1 }
+
+Profile-Entry ::= SEQUENCE {
+  ManufactureName OCTET STRING,
+  DeviceName OCTET STRING,
+  SerialNumber OCTET STRING,
+  Barcode OCTET STRING,
+ }
+ 
+ManufactureName OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Name of the battery manufacturer.
+				 Original Data Type: String"
+	::= {profile-Entry 10}
+
+DeviceName OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Name of the battery name.
+				 Original Data Type: String"
+	::= {profile-Entry 20}
+	
+SerialNumber OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "Serial Number of the battery.
+				 Original Data Type: String"
+	::= {profile-Entry 30}
+	
+Barcode OBJECT-TYPE
+	SYNTAX OCTET STRING
+	MAX-ACCESS read-only
+	STATUS current
+	DESCRIPTION "BarCode of the battery.
+				 Original Data Type: String"
+	::= {profile-Entry 40}
+	
+END
