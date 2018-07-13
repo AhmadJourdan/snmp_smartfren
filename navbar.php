@@ -48,17 +48,6 @@
         <li><a href="communication.php">Communication</a></li>
         <li><a href="module.php">Module</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="set_profile.php">Profile</a></li>
-            <!-- <li><a href="set_network.php">Network</a></li> -->
-            <li><a href="documentation/documentation.pdf" target="_blank">Documentation</a></li>
-            <li><a href="logout.php">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container-fluid -->
 </nav>

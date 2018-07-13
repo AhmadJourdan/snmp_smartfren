@@ -55,7 +55,7 @@ $backup_date = $data['backup_date'];
               
               $json_object = json_decode($result);
         ?>
-<meta http-equiv="refresh" content="60">
+<!-- <meta http-equiv="refresh" content="60"> -->
 <body>
   <!-- <MARQUEE align="center" direction="left" height="20" scrollamount="6" width="100%" behavior="alternate" style="background-color: #1d388c; color: white; margin-top:-10%;">Please backup data before <?php echo $backup_date; ?> !!!</MARQUEE> -->
   <form name="form1" method="post" action="module.php">
@@ -111,8 +111,6 @@ $backup_date = $data['backup_date'];
               <input name="export" value="Export" type="Submit" id="export" class="btn btn-primary" formaction="module_excel.php">
             </div>
           </td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td><h4><?php echo "Latest Update : ".$json_object->Timestamp ?></h4></td>
         </tr>
       </table>
       <br>

@@ -2,9 +2,9 @@
 // Start the session
    session_start();
    if(!isset($_SESSION['Login'])) {	  
-	   header('Location: login.php');   
+	   header('Location: generaldata.php');   
    } else {
-	   header('Location: reservation.php');   
+	   header('Location: generaldata.php');   
    }
 ?>   
 <html>

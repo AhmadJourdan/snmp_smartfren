@@ -17,7 +17,7 @@ if (!isset($_SESSION['ID'])){
     $data = mysqli_fetch_assoc($sql);
     $backup_date = $data['backup_date'];
 ?>
-<meta http-equiv="refresh" content="10">
+<!-- <meta http-equiv="refresh" content="10"> -->
 <body>
   <form name="form1" method="post" action="generaldata_excel.php">
     <div class="container table-responsive">
@@ -51,8 +51,6 @@ if (!isset($_SESSION['ID'])){
               <input name="export" value="Export" type="Submit" id="export" class="btn btn-primary" formaction="generaldata_excel.php">
             </div>
           </td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td><h4><?php echo "Latest Update : ".$json_object->Timestamp ?></h4></td>
         </tr>
       </table>
       <br>
